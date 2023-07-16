@@ -3,6 +3,10 @@ $colors: (
   "black": #000,
   "solitude": #f5f5f9,
   "chambray": #435971,
+  "lynch": #697a8d,
+  "kashmir-blue": #566a7f,
+  "light-slate-blue": #696cff,
+  "ghost-white": #e7e7ff,
 );
 
 :root {
@@ -12,7 +16,13 @@ $colors: (
 }
 
 @each $name, $value in $colors {
-  .color-#{$name}::before {
+  .color-#{$name} {
+    color: $value;
+  }
+}
+
+@each $name, $value in $colors {
+  .icon-color-#{$name}::before {
     color: $value;
   }
 }

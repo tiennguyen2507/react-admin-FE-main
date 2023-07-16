@@ -14,12 +14,10 @@ export default function BaseIcon({
   return (
     <span
       style={{ fontSize: `${size}px` }}
-      className={classNames([
-        "base-icon",
+      className={classNames("base-icon", [
         {
           [`icon-${name}`]: name,
-          [`icon-${size}`]: size,
-          [`color-${color}`]: color,
+          [`icon-color-${color}`]: color,
         },
       ])}
     />
