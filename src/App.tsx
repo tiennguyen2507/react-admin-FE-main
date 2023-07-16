@@ -1,5 +1,5 @@
-function App() {
-  return <>Hello word</>;
-}
+import DashBoardLayout from "@/layouts/DashBoardLayout";
 
-export default App;
+export default function App() {
+  return <DashBoardLayout />;
+}

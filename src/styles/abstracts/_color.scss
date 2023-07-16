@@ -1,0 +1,18 @@
+$colors: (
+  "white": #fff,
+  "black": #000,
+  "solitude": #f5f5f9,
+  "chambray": #435971,
+);
+
+:root {
+  @each $name, $value in $colors {
+    --color-#{$name}: #{$value};
+  }
+}
+
+@each $name, $value in $colors {
+  .color-#{$name}::before {
+    color: $value;
+  }
+}

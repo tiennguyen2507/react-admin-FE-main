@@ -19,13 +19,15 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "@",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["*"],
-      "@/styles/*": ["styled/*"],
-      "@/components/*": ["components/*"]
+      "@/*": ["src/*"],
+      "@/styles/*": ["src/styled/*"],
+      "@/components/*": ["src/components/*"],
+      "@/container/*": ["src/container/*"],
+      "@/layouts/*": ["src/layouts/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

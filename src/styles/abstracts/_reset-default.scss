@@ -1,0 +1,21 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Public Sans", sans-serif;
+  line-height: 1.15;
+}
+
+body,
+input,
+textarea {
+  color: var(--color-east-bay);
+}
+
+body,
+p {
+  margin: 0;
+}

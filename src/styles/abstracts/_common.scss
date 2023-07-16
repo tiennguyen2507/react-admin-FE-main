@@ -1,0 +1,13 @@
+.layout-container {
+  width: 100%;
+  max-width: 1480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.router-link-exact-active {
+  color: rgb(249, 115, 22);
+  &:hover {
+    color: rgb(249, 115, 22);
+  }
+}
