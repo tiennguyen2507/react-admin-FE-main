@@ -13,17 +13,14 @@ export default function DashBoardMenuItem({
       className={classNames([
         "dash-board-menu-item",
         { "dash-board-menu-item--active": active && icon },
+        { "dash-board-menu-item--sub-active": active && !icon },
       ])}
       onClick={onClick}
     >
-      <div
-        className={classNames("dash-board-menu-item__icon", [
-          { "dash-board-menu-item__icon--active": active && !icon },
-        ])}
-      >
+      <div className="dash-board-menu-item__icon">
         <BaseIcon name={icon ? icon : "bx-circle"} size={icon ? "18" : "6"} />
       </div>
-      <BaseText size="15" weight="600">
+      <BaseText size="15" weight={active && !icon ? "600" : "400"}>
         {label}
       </BaseText>
     </div>

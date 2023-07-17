@@ -16,7 +16,7 @@ export default function BaseText({
   return (
     <p
       style={{ fontSize: `${size}px`, fontWeight: weight }}
-      className={`color-${color} ${className}`}
+      className={`base-text color-${color} ${className}`}
     >
       {children}
     </p>

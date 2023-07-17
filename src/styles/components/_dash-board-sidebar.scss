@@ -56,6 +56,7 @@
 }
 
 .dash-board-menu-item {
+  $root: &;
   display: flex;
   align-items: center;
   padding: 12px 15px;
@@ -76,7 +77,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    &--active {
+  }
+
+  &--sub-active {
+    #{$root}__icon {
       background-color: var(--color-ghost-white);
       .base-icon::before {
         color: var(--color-light-slate-blue);
