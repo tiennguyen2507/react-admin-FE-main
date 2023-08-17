@@ -1,7 +1,3 @@
-import BaseIcon from "@/components/base/BaseIcon/BaseIcon";
-import BaseText from "@/components/base/BaseText/BaseText";
-import classNames from "classnames";
-
 export default function DashBoardMenuItem({
   active,
   icon,

@@ -1,9 +1,9 @@
 interface BaseTextProps {
   size?: string;
   color?: string;
-  weight?: string;
+  weight?: CSSProperties["fontWeight"];
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function BaseText({
@@ -16,7 +16,11 @@ export default function BaseText({
   return (
     <p
       style={{ fontSize: `${size}px`, fontWeight: weight }}
-      className={`base-text color-${color} ${className}`}
+      className={classNames([
+        "base-text",
+        { [`color-${color}`]: color },
+        className,
+      ])}
     >
       {children}
     </p>

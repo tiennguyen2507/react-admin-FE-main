@@ -1,8 +1,6 @@
-import DashBoardSubMenu from "./elements/DashBoardSubMenu";
 import { resources } from "@/constants/resources";
-import BaseText from "@/components/base/BaseText";
+import DashBoardSubMenu from "./elements/DashBoardSubMenu";
 import DashBoardMenuItem from "./elements/DashBoardMenuItem";
-import { useState } from "react";
 
 const menuList: DashBoardMenu.MenusList[] = [
   {
@@ -30,32 +28,38 @@ export default function SideBar(): JSX.Element {
     </div>
   );
 
+  const renderMenu = ({
+    id,
+    label,
+    children,
+    icon,
+  }: DashBoardMenu.MenusList): JSX.Element => {
+    if (children) {
+      return (
+        <DashBoardSubMenu
+          active={children.some((item) => item.id === selectItem)}
+          selectItem={selectItem}
+          key={id}
+          items={children}
+          onClickItem={(id) => setSelectItem(id)}
+        />
+      );
+    }
+    return (
+      <DashBoardMenuItem
+        active={id === selectItem}
+        label={label}
+        icon={icon}
+        key={id}
+        onClick={() => setSelectItem(id)}
+      />
+    );
+  };
+
   return (
     <div className="dash-board-sidebar">
       {renderHeader()}
-      <div className="dash-board-sidebar__menu">
-        {menuList.map(({ id, label, children, icon }) => (
-          <>
-            {children ? (
-              <DashBoardSubMenu
-                active={children.some((item) => item.id === selectItem)}
-                selectItem={selectItem}
-                key={id}
-                items={children}
-                onClickItem={(id) => setSelectItem(id)}
-              />
-            ) : (
-              <DashBoardMenuItem
-                active={id === selectItem}
-                label={label}
-                icon={icon}
-                key={id}
-                onClick={() => setSelectItem(id)}
-              />
-            )}
-          </>
-        ))}
-      </div>
+      <div className="dash-board-sidebar__menu">{menuList.map(renderMenu)}</div>
     </div>
   );
 }
