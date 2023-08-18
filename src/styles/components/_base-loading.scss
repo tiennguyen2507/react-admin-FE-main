@@ -1,0 +1,12 @@
+.base-loading {
+    background-color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+
+    &__image {
+        width: 30px;
+        height: 30px;
+    }
+}

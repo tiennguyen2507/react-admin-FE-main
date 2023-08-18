@@ -21,7 +21,7 @@ export default function SideBar(): JSX.Element {
 
   const renderHeader = (): JSX.Element => (
     <div className="dash-board-sidebar__header">
-      <img src={resources.logo} />
+      <img src={resources.LOGO} />
       <BaseText size="30" weight="700" color="kashmir-blue">
         sneat
       </BaseText>

@@ -1,5 +1,3 @@
-import classNames from "classnames";
-
 interface IconProps {
   name: string;
   size?: string;

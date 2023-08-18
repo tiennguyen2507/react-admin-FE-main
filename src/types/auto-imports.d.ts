@@ -6,6 +6,7 @@
 export {}
 declare global {
   const BaseIcon: typeof import('../shared/component')['BaseIcon']
+  const BaseLoading: typeof import('../shared/component')['BaseLoading']
   const BaseText: typeof import('../shared/component')['BaseText']
   const a: typeof import('from')['a']
   const c: typeof import('from')['c']
@@ -38,5 +39,5 @@ declare global {
 // for type re-export
 declare global {
   // @ts-ignore
-  export type { CSSProperties, ReactNode } from 'react'
+  export type { CSSProperties, ReactNode, FunctionComponent } from 'react'
 }

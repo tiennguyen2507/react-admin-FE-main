@@ -11,7 +11,11 @@ export default defineConfig({
     AutoImport({
       imports: [
         "react",
-        { from: "react", imports: ["CSSProperties", "ReactNode"], type: true },
+        {
+          from: "react",
+          imports: ["CSSProperties", "ReactNode", "FunctionComponent"],
+          type: true,
+        },
         { classnames: [["default", "classNames"]] },
       ],
       dirs: ["src/shared"],
