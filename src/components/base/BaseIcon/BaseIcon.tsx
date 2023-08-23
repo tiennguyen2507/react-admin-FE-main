@@ -4,20 +4,22 @@ interface IconProps {
   color?: string;
 }
 
-export default function BaseIcon({
-  name = "bx-home",
-  color = "chambray",
-  size = "16",
-}: IconProps) {
-  return (
-    <span
-      style={{ fontSize: `${size}px` }}
-      className={classNames("base-icon", [
-        {
-          [`icon-${name}`]: name,
-          [`icon-color-${color}`]: color,
-        },
-      ])}
-    />
-  );
-}
+const BaseIcon: FunctionComponent<IconProps> = ({ name, color, size }) => (
+  <span
+    style={{ fontSize: `${size}px` }}
+    className={classNames('base-icon', [
+      {
+        [`icon-${name}`]: name,
+        [`icon-color-${color}`]: color,
+      },
+    ])}
+  />
+);
+
+BaseIcon.defaultProps = {
+  name: 'bx-home',
+  color: 'chambray',
+  size: '16',
+};
+
+export default BaseIcon;

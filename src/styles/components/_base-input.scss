@@ -1,0 +1,15 @@
+.base-input {
+  width: 100%;
+  &__wraper {
+    border: 1px solid var(--color-kashmir-blue);
+    border-radius: 4px;
+    padding: 4px;
+  }
+
+  &__input {
+    outline: none;
+    border: none;
+    font-size: 14px;
+    background: transparent;
+  }
+}

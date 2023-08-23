@@ -1,22 +1,20 @@
-import { useNavigate } from "react-router";
+import BaseButton from '@/components/base/BaseButton';
+import BaseInput from '@/components/base/BaseInput';
+import { useNavigate } from 'react-router';
 
 const SignIn: FunctionComponent = () => {
   const navigate = useNavigate();
 
   const onSignIn = (): void => {
-    navigate("/");
+    navigate('/');
   };
   return (
     <div className="sign-in">
-      <div>
-        <label>usename</label>
-        <input id="123" type="text" />
+      <div className="sign-in__form">
+        <BaseInput label="usename" />
+        <BaseInput label="password" type="password" />
+        <BaseButton label="sign-in" onClick={onSignIn} />
       </div>
-      <div>
-        <label>password</label>
-        <input id="123" type="text" />
-      </div>
-      <button onClick={onSignIn}>Sign-in</button>
     </div>
   );
 };
