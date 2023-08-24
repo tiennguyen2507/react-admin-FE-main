@@ -8,6 +8,8 @@ declare global {
   const BaseIcon: typeof import('../shared/component')['BaseIcon']
   const BaseLoading: typeof import('../shared/component')['BaseLoading']
   const BaseText: typeof import('../shared/component')['BaseText']
+  const Helmet: typeof import('react-helmet-async')['Helmet']
+  const HelmetProvider: typeof import('react-helmet-async')['HelmetProvider']
   const a: typeof import('from')['a']
   const c: typeof import('from')['c']
   const classNames: typeof import('classnames')['default']

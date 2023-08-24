@@ -1,7 +1,7 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tsconfigPaths from "vite-tsconfig-paths";
-import AutoImport from "unplugin-auto-import/vite";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import AutoImport from 'unplugin-auto-import/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,16 +10,17 @@ export default defineConfig({
     tsconfigPaths(),
     AutoImport({
       imports: [
-        "react",
+        'react',
         {
-          from: "react",
-          imports: ["CSSProperties", "ReactNode", "FunctionComponent"],
+          from: 'react',
+          imports: ['CSSProperties', 'ReactNode', 'FunctionComponent'],
           type: true,
         },
-        { classnames: [["default", "classNames"]] },
+        { classnames: [['default', 'classNames']] },
+        { 'react-helmet-async': ['HelmetProvider', 'Helmet'] },
       ],
-      dirs: ["src/shared"],
-      dts: "src/types/auto-imports.d.ts",
+      dirs: ['src/shared'],
+      dts: 'src/types/auto-imports.d.ts',
     }),
   ],
 });
