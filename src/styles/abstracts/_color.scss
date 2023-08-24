@@ -1,18 +1,23 @@
 $colors: (
-  "white": #fff,
-  "black": #000,
-  "solitude": #f5f5f9,
-  "chambray": #435971,
-  "lynch": #697a8d,
-  "kashmir-blue": #566a7f,
-  "light-slate-blue": #696cff,
-  "ghost-white": #e7e7ff,
+  'white': #fff,
+  'black': #000,
+  'solitude': #f5f5f9,
+  'chambray': #435971,
+  'lynch': #697a8d,
+  'kashmir-blue': #566a7f,
+  'light-slate-blue': #696cff,
+  'ghost-white': #e7e7ff,
+  'half-spanish-white': #e8dfcb,
+  'cello': #3b5662,
+  'woodsmoke': #323736,
 );
 
 :root {
   @each $name, $value in $colors {
     --color-#{$name}: #{$value};
   }
+  --color-primary: var(--color-cello);
+  --color-warning: var(--color-half-spanish-white);
 }
 
 @each $name, $value in $colors {
