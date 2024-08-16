@@ -1,4 +1,7 @@
-@import "abstracts";
-@import "components";
-@import "layout";
-@import "page.scss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'abstracts';
+@import 'components';
+@import 'layout';
+@import 'page.scss';

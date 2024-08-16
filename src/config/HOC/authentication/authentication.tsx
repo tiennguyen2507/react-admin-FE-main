@@ -1,9 +1,9 @@
 export default (Component: FunctionComponent): FunctionComponent =>
   (prop: any) => {
     const [isLoading, setIsLoading] = useState(true);
-    const route = "/about";
+    const route = '/about';
 
-    const pathPublic = ["/about", "/contract"];
+    const pathPublic = ['/about', '/contract'];
 
     useEffect(() => {
       setTimeout(() => {
