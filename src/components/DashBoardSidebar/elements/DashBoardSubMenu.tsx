@@ -9,8 +9,6 @@ export default function DashBoardSubMenu({
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  console.log(location);
-
   const MenuItem: React.FC = () => {
     if (items.length !== 0) {
       return (
