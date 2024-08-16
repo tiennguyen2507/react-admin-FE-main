@@ -1,23 +1,23 @@
-import { resources } from "@/constants/resources";
-import DashBoardSubMenu from "./elements/DashBoardSubMenu";
-import DashBoardMenuItem from "./elements/DashBoardMenuItem";
+import { resources } from '@/constants/resources';
+import DashBoardSubMenu from './elements/DashBoardSubMenu';
+import DashBoardMenuItem from './elements/DashBoardMenuItem';
 
 const menuList: DashBoardMenu.MenusList[] = [
   {
-    id: "dashboard-home",
-    label: "Dashboards",
-    icon: "bx-home",
+    id: 'dashboard-home',
+    label: 'Dashboards',
+    icon: 'bx-home',
     children: [
-      { id: "dashboard-home-children-1", label: "Analytics" },
-      { id: "dashboard-home-children-2", label: "eCommerce" },
+      { id: 'dashboard-home-children-1', label: 'User', path: '/user' },
+      { id: 'dashboard-home-children-2', label: 'Product', path: '/product' },
     ],
   },
-  { id: "dashboard-email", label: "Email", icon: "email" },
-  { id: "dashboard-chart", label: "Chat", icon: "Message" },
+  { id: 'dashboard-email', label: 'Email', icon: 'email' },
+  { id: 'dashboard-chart', label: 'Chat', icon: 'Message' },
 ];
 
 export default function SideBar(): JSX.Element {
-  const [selectItem, setSelectItem] = useState("dashboard-home-children-1");
+  const [selectItem, setSelectItem] = useState('dashboard-home-children-1');
 
   const renderHeader = (): JSX.Element => (
     <div className="dash-board-sidebar__header">
@@ -41,7 +41,9 @@ export default function SideBar(): JSX.Element {
           selectItem={selectItem}
           key={id}
           items={children}
-          onClickItem={(id) => setSelectItem(id)}
+          onClickItem={(id) => {
+            setSelectItem(id);
+          }}
         />
       );
     }

@@ -1,18 +1,13 @@
 import SideBar from '@/components/DashBoardSidebar';
-import { authentication } from '@/config/HOC/authentication';
-import { Button } from '@nextui-org/react';
+import React, { PropsWithChildren } from 'react';
 
-const DashBoardLayout: FunctionComponent = () => {
+const DashBoardLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="dashboard-layout">
       <SideBar />
-      <div>
-        <Button color="primary" className="w-60">
-          Button
-        </Button>
-      </div>
+      <main className="p-2">{children}</main>
     </div>
   );
 };
 
-export default authentication(DashBoardLayout);
+export default DashBoardLayout;

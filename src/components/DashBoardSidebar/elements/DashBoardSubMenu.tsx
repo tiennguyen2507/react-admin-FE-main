@@ -1,36 +1,43 @@
-import DashBoardMenuItem from "./DashBoardMenuItem";
+import { useLocation, useNavigate } from 'react-router';
+import DashBoardMenuItem from './DashBoardMenuItem';
 
 export default function DashBoardSubMenu({
-  selectItem,
   active,
   items,
   onClickItem,
 }: DashBoardMenu.SubMenuProps): JSX.Element {
-  const renderMenuItem = (): JSX.Element | null => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  console.log(location);
+
+  const MenuItem: React.FC = () => {
     if (items.length !== 0) {
       return (
         <div className="dash-board-sub-menu__item">
-          {items.map(({ id, label, icon }) => (
+          {items.map(({ id, label, icon, path }) => (
             <DashBoardMenuItem
-              active={id === selectItem}
+              active={path === pathname}
               label={label}
               icon={icon}
               key={id}
-              onClick={() => onClickItem && onClickItem(id)}
+              onClick={() => {
+                onClickItem && onClickItem(id);
+                path && navigate(path);
+              }}
             />
           ))}
         </div>
       );
     }
-    return null;
   };
 
   return (
     <>
       <div
         className={classNames([
-          "dash-board-sub-menu",
-          { "dash-board-sub-menu--active": active },
+          'dash-board-sub-menu',
+          { 'dash-board-sub-menu--active': active },
         ])}
       >
         <div className="dash-board-sub-menu__content">
@@ -41,7 +48,7 @@ export default function DashBoardSubMenu({
         </div>
         <BaseIcon name="arrow-down" size="10" />
       </div>
-      {renderMenuItem()}
+      <MenuItem />
     </>
   );
 }

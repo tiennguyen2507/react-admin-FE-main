@@ -17,6 +17,7 @@ declare namespace DashBoardMenu {
     id: string;
     label: string;
     icon?: string;
+    path?: string;
   }
 
   interface MenusList extends MenuItem {
