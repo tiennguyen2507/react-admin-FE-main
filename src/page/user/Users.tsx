@@ -1,25 +1,18 @@
-import { useLoading } from '@/components/ui/loading';
+import { LoadingWrapper } from '@/components/ui/loading';
 import { Modal } from '@/components/ui/modal';
 import { Table } from '@/components/ui/Table';
 import httpRequest from '@/config/httpRequest';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
 import { Button } from '@nextui-org/react';
+import { useQuery } from '@tanstack/react-query';
 
 const Users: React.FC = () => {
-  const [users, setUsers] = useState([]);
+  const { data: users, isLoading } = useQuery({
+    queryKey: ['get-user'],
+    queryFn: () => httpRequest.get('/users').then(({ data }) => data),
+  });
+
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const { LoadingWrapper, setIsLoading } = useLoading();
-  const getUsers = async () => {
-    setIsLoading(true);
-    const { data } = await httpRequest.get('/users');
-
-    setUsers(data);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getUsers();
-  }, []);
 
   return (
     <DashBoardLayout>
@@ -29,7 +22,7 @@ const Users: React.FC = () => {
           add
         </Button>
       </div>
-      <LoadingWrapper>
+      <LoadingWrapper isLoading={isLoading}>
         <Table
           columns={[
             { key: 'name', label: 'name' },

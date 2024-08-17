@@ -1,1 +1,1 @@
-export { useLoading } from './useLoading';
+export { Loading, LoadingWrapper } from './Loading';
