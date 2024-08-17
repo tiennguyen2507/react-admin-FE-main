@@ -19,11 +19,10 @@ type Props = Omit<ModalProps, 'children'> &
   }>;
 
 export const Modal: React.FC<Props> = (props) => {
-  const { title, children, action } = props;
-  console.log(action);
+  const { title, children, action, ...modalProps } = props;
 
   return (
-    <ModalWrapper {...props}>
+    <ModalWrapper {...modalProps}>
       <ModalContent>
         {(onClose) => (
           <>

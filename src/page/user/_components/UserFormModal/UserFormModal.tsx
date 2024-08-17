@@ -25,6 +25,8 @@ export const UserFormModal: React.FC<{
     formState: { errors },
   } = useForm<FieldValue>({ resolver: zodResolver(userSchema) });
 
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation({
     mutationFn: (data: FieldValue) => httpRequest.post('/users', data),
     onSuccess: () => {
@@ -32,8 +34,6 @@ export const UserFormModal: React.FC<{
       queryClient.invalidateQueries({ queryKey: ['get-user'] });
     },
   });
-
-  const queryClient = useQueryClient();
 
   return (
     <Modal
