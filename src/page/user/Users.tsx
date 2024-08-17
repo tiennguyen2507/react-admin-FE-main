@@ -1,5 +1,5 @@
 import { useLoading } from '@/components/ui/loading';
-import Modal from '@/components/ui/modal/Modal';
+import Modal from '@/components/ui/modal';
 import Table from '@/components/ui/table';
 import httpRequest from '@/config/httpRequest';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
@@ -38,8 +38,8 @@ const Users: React.FC = () => {
           ]}
           rows={users}
           renderRow={{
-            name: ({ lastName, firstName }) => lastName + ' ' + firstName,
-            address: ({ address }) => address || 'Chưa được cập nhật',
+            name: ({ lastName, firstName }: any) => lastName + ' ' + firstName,
+            address: ({ address }: any) => address || 'Chưa được cập nhật',
           }}
         />
       </LoadingWrapper>
