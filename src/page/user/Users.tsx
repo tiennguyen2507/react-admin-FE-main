@@ -1,6 +1,6 @@
 import { useLoading } from '@/components/ui/loading';
 import { Modal } from '@/components/ui/modal';
-import { Table } from '@/components/ui/table';
+// import { Table } from '@/components/ui/table';
 import httpRequest from '@/config/httpRequest';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
 import { Button } from '@nextui-org/react';
@@ -30,7 +30,8 @@ const Users: React.FC = () => {
         </Button>
       </div>
       <LoadingWrapper>
-        <Table
+        hello
+        {/* <Table
           columns={[
             { key: 'name', label: 'name' },
             { key: 'email', label: 'email' },
@@ -41,7 +42,7 @@ const Users: React.FC = () => {
             name: ({ lastName, firstName }: any) => lastName + ' ' + firstName,
             address: ({ address }: any) => address || 'Chưa được cập nhật',
           }}
-        />
+        /> */}
       </LoadingWrapper>
       <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} />
     </DashBoardLayout>
