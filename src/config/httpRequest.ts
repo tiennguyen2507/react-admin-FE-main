@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const httpRequest = axios.create({
   baseURL: 'https://nest-study.adaptable.app/',
-  timeout: 6000,
+  timeout: 60000,
 });
 
 httpRequest.interceptors.request.use((request) => {
