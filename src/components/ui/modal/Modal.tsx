@@ -6,44 +6,34 @@ import {
   ModalHeader,
   Modal as ModalWrapper,
   ModalProps,
+  ButtonProps,
 } from '@nextui-org/react';
+import { PropsWithChildren } from 'react';
 
-type Props = Omit<ModalProps, 'children'>;
+type Props = Omit<ModalProps, 'children'> &
+  PropsWithChildren<{
+    title: string;
+    action?: {
+      submit?: ButtonProps;
+    };
+  }>;
 
 export const Modal: React.FC<Props> = (props) => {
+  const { title, children, action } = props;
+  console.log(action);
+
   return (
     <ModalWrapper {...props}>
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
-              Modal Title
-            </ModalHeader>
-            <ModalBody>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                pulvinar risus non risus hendrerit venenatis. Pellentesque sit
-                amet hendrerit risus, sed porttitor quam.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                pulvinar risus non risus hendrerit venenatis. Pellentesque sit
-                amet hendrerit risus, sed porttitor quam.
-              </p>
-              <p>
-                Magna exercitation reprehenderit magna aute tempor cupidatat
-                consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                aliqua enim laboris do dolor eiusmod. Et mollit incididunt nisi
-                consectetur esse laborum eiusmod pariatur proident Lorem eiusmod
-                et. Culpa deserunt nostrud ad veniam.
-              </p>
-            </ModalBody>
+            <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
+            <ModalBody>{children}</ModalBody>
             <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
+              <Button color="danger" variant="light" onClick={onClose}>
                 Close
               </Button>
-              <Button color="primary" onPress={onClose}>
+              <Button color="primary" {...action?.submit}>
                 Action
               </Button>
             </ModalFooter>
