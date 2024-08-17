@@ -1,6 +1,6 @@
 import { useLoading } from '@/components/ui/loading';
-import Modal from '@/components/ui/modal';
-import Table from '@/components/ui/table';
+import { Modal } from '@/components/ui/modal';
+import { Table } from '@/components/ui/table';
 import httpRequest from '@/config/httpRequest';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
 import { Button } from '@nextui-org/react';
