@@ -5,7 +5,7 @@ const DashBoardLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="dashboard-layout">
       <SideBar />
-      <main className="p-2">{children}</main>
+      <main className="p-5">{children}</main>
     </div>
   );
 };
