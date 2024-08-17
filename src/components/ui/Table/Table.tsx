@@ -15,7 +15,11 @@ type TableProps = {
   renderRow?: Record<string, (value: any) => ReactNode>;
 };
 
-const Table: React.FC<TableProps> = ({ rows, columns, renderRow = {} }) => {
+export const Table: React.FC<TableProps> = ({
+  rows,
+  columns,
+  renderRow = {},
+}) => {
   return (
     <TableWrapper aria-label="Table content">
       <TableHeader>
@@ -38,5 +42,3 @@ const Table: React.FC<TableProps> = ({ rows, columns, renderRow = {} }) => {
     </TableWrapper>
   );
 };
-
-export default Table;

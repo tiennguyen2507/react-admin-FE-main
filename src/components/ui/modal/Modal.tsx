@@ -10,7 +10,7 @@ import {
 
 type Props = Omit<ModalProps, 'children'>;
 
-const Modal: React.FC<Props> = (props) => {
+export const Modal: React.FC<Props> = (props) => {
   return (
     <ModalWrapper {...props}>
       <ModalContent>
@@ -53,5 +53,3 @@ const Modal: React.FC<Props> = (props) => {
     </ModalWrapper>
   );
 };
-
-export default Modal;
