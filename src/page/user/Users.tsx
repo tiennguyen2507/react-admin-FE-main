@@ -1,19 +1,19 @@
 import { useLoading } from '@/components/ui/loading';
 import { Modal } from '@/components/ui/modal';
-// import { Table } from '@/components/ui/table';
-// import httpRequest from '@/config/httpRequest';
+import { Table } from '@/components/ui/table';
+import httpRequest from '@/config/httpRequest';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
 import { Button } from '@nextui-org/react';
 
 const Users: React.FC = () => {
-  // const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { LoadingWrapper, setIsLoading } = useLoading();
   const getUsers = async () => {
     setIsLoading(true);
-    // const { data } = await httpRequest.get('/users');
+    const { data } = await httpRequest.get('/users');
 
-    // setUsers(data);
+    setUsers(data);
     setIsLoading(false);
   };
 
@@ -30,8 +30,7 @@ const Users: React.FC = () => {
         </Button>
       </div>
       <LoadingWrapper>
-        hello
-        {/* <Table
+        <Table
           columns={[
             { key: 'name', label: 'name' },
             { key: 'email', label: 'email' },
@@ -42,7 +41,7 @@ const Users: React.FC = () => {
             name: ({ lastName, firstName }: any) => lastName + ' ' + firstName,
             address: ({ address }: any) => address || 'Chưa được cập nhật',
           }}
-        /> */}
+        />
       </LoadingWrapper>
       <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} />
     </DashBoardLayout>
