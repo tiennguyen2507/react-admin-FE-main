@@ -1,4 +1,4 @@
-import httpRequest from '@/config/httpRequest';
+import { httpRequest } from '@/config/httpRequest';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@nextui-org/react';
 import { useMutation } from '@tanstack/react-query';
@@ -24,10 +24,10 @@ const SignIn: FunctionComponent = () => {
 
   const { mutate } = useMutation({
     mutationFn: (data: FieldValue) => httpRequest.post('/auth/login', data),
-    onSuccess: ({ data }) => {
-      navigate('/user');
+    onSuccess: async ({ data }) => {
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('refresh_token', data.refresh_token);
+      navigate('/user');
     },
   });
 

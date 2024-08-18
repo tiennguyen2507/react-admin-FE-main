@@ -1,10 +1,12 @@
 import { Loading } from '@/components/ui/loading';
-import { useNavigate } from 'react-router';
+import { NavigateFunction, useNavigate } from 'react-router';
+
+export type ContextMiddleware = { navigate: NavigateFunction };
 
 type TypeParamsPageConfig = {
   Page: any;
   title: string;
-  middleware?: (() => Promise<boolean>)[];
+  middleware?: ((ctx?: ContextMiddleware) => Promise<boolean>)[];
 };
 
 export const PageConfig = ({ Page, title, middleware = [] }: TypeParamsPageConfig) => {
@@ -12,11 +14,13 @@ export const PageConfig = ({ Page, title, middleware = [] }: TypeParamsPageConfi
   const [check, setCheck] = useState(false);
   document.title = title;
 
-  const handleMiddleware = async (middleware: (() => Promise<boolean>)[]) => {
+  const handleMiddleware = async (
+    middleware: ((ctx?: ContextMiddleware) => Promise<boolean>)[],
+  ) => {
     if (middleware.length === 0) return true;
     const [firsMiddleware, ...rest] = middleware;
 
-    const check = await firsMiddleware();
+    const check = await firsMiddleware({ navigate });
     if (!check) {
       return navigate('/404');
     }

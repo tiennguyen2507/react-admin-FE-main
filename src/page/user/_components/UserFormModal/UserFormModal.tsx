@@ -1,5 +1,5 @@
 import { Modal } from '@/components/ui/modal';
-import httpRequest from '@/config/httpRequest';
+import httpRequestAuth from '@/config/httpRequest';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@nextui-org/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -28,7 +28,7 @@ export const UserFormModal: React.FC<{
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: (data: FieldValue) => httpRequest.post('/users', data),
+    mutationFn: (data: FieldValue) => httpRequestAuth.post('/users', data),
     onSuccess: () => {
       setIsUserFormModal(false);
       queryClient.invalidateQueries({ queryKey: ['get-user'] });

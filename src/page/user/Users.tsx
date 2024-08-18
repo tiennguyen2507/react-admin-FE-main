@@ -1,6 +1,5 @@
 import { LoadingWrapper } from '@/components/ui/loading';
 import { Table } from '@/components/ui/Table';
-import httpRequest from '@/config/httpRequest';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
 import { Button } from '@nextui-org/react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -8,11 +7,13 @@ import { useUserFormModal } from './_components/UserFormModal';
 import { EditIcon, DeleteIcon, CheckIcon } from '@nextui-org/shared-icons';
 import { Popover } from '@/components/ui/Popover';
 import { PageConfig } from '@/config/pageConfig';
+import httpRequestAuth from '@/config/httpRequest';
+import { withLogin } from '@/middleware/withLogin';
 
 const Users: React.FC = () => {
   const { data: users, isLoading } = useQuery({
     queryKey: ['get-user'],
-    queryFn: () => httpRequest.get('/users').then(({ data }) => data),
+    queryFn: () => httpRequestAuth.get('/users').then(({ data }) => data),
   });
 
   const { UserFormModal, setIsUserFormModal } = useUserFormModal();
@@ -51,7 +52,7 @@ const Users: React.FC = () => {
 const ActionTable: React.FC<{ id: string }> = ({ id }) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    mutationFn: (id: string) => httpRequest.delete(`/users/${id}`),
+    mutationFn: (id: string) => httpRequestAuth.delete(`/users/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-user'] });
     },
@@ -80,13 +81,9 @@ const ActionTable: React.FC<{ id: string }> = ({ id }) => {
   );
 };
 
-const withLogin = async () => {
-  return true;
-};
-
 export default () =>
   PageConfig({
     Page: Users,
     title: 'Dashboard user',
-    middleware: [withLogin, withLogin, withLogin],
+    middleware: [withLogin],
   });

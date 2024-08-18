@@ -1,4 +1,6 @@
+import { PageConfig } from '@/config/pageConfig';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
+import { withLogin } from '@/middleware/withLogin';
 
 const Product = () => {
   return (
@@ -8,4 +10,9 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default () =>
+  PageConfig({
+    Page: Product,
+    title: 'Dashboard user',
+    middleware: [withLogin],
+  });
