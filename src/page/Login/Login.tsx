@@ -1,4 +1,5 @@
 import { httpRequest } from '@/config/httpRequest';
+import { ContextMiddleware, PageConfig } from '@/config/pageConfig';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@nextui-org/react';
 import { useMutation } from '@tanstack/react-query';
@@ -13,7 +14,7 @@ const loginSchema = z.object({
 
 type FieldValue = z.infer<typeof loginSchema>;
 
-const SignIn: FunctionComponent = () => {
+const Login: FunctionComponent = () => {
   const navigate = useNavigate();
 
   const {
@@ -62,4 +63,17 @@ const SignIn: FunctionComponent = () => {
   );
 };
 
-export default SignIn;
+export const loggedIn = async ({ navigate }: ContextMiddleware) => {
+  const access_token = localStorage.getItem('access_token');
+  if (access_token) {
+    navigate('/user');
+  }
+  return true;
+};
+
+export default () =>
+  PageConfig({
+    Page: Login,
+    title: 'Login page',
+    middleware: [loggedIn],
+  });

@@ -5,7 +5,7 @@ import Page404 from '@/page/404';
 
 const App = lazyLoad(() => import('@/page/App'));
 const Product = lazyLoad(() => import('@/page/product'));
-const SignIn = lazyLoad(() => import('@/page/SignIn'));
+const SignIn = lazyLoad(() => import('@/page/Login'));
 
 const router = createBrowserRouter([
   { path: '/', element: <App /> },

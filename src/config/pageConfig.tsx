@@ -6,7 +6,7 @@ export type ContextMiddleware = { navigate: NavigateFunction };
 type TypeParamsPageConfig = {
   Page: any;
   title: string;
-  middleware?: ((ctx?: ContextMiddleware) => Promise<boolean>)[];
+  middleware?: Array<(ctx: ContextMiddleware) => Promise<boolean>>;
 };
 
 export const PageConfig = ({ Page, title, middleware = [] }: TypeParamsPageConfig) => {
@@ -14,9 +14,7 @@ export const PageConfig = ({ Page, title, middleware = [] }: TypeParamsPageConfi
   const [check, setCheck] = useState(false);
   document.title = title;
 
-  const handleMiddleware = async (
-    middleware: ((ctx?: ContextMiddleware) => Promise<boolean>)[],
-  ) => {
+  const handleMiddleware = async (middleware: ((ctx: ContextMiddleware) => Promise<boolean>)[]) => {
     if (middleware.length === 0) return true;
     const [firsMiddleware, ...rest] = middleware;
 
@@ -35,12 +33,13 @@ export const PageConfig = ({ Page, title, middleware = [] }: TypeParamsPageConfi
     checkMiddleware();
   }, []);
 
-  if (check) {
-    return <Page />;
+  if (!check) {
+    return (
+      <div className="flex items-center h-screen justify-center">
+        <Loading />
+      </div>
+    );
   }
-  return (
-    <div className="flex items-center h-screen justify-center">
-      <Loading />
-    </div>
-  );
+
+  return <Page />;
 };

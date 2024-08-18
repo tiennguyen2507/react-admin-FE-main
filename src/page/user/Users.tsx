@@ -84,6 +84,6 @@ const ActionTable: React.FC<{ id: string }> = ({ id }) => {
 export default () =>
   PageConfig({
     Page: Users,
-    title: 'Dashboard user',
+    title: 'User page',
     middleware: [withLogin],
   });

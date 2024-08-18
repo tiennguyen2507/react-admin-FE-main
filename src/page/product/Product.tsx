@@ -13,6 +13,6 @@ const Product = () => {
 export default () =>
   PageConfig({
     Page: Product,
-    title: 'Dashboard user',
+    title: 'Product page',
     middleware: [withLogin],
   });
