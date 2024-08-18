@@ -55,6 +55,7 @@ const ActionTable: React.FC<{ id: string }> = ({ id }) => {
       queryClient.invalidateQueries({ queryKey: ['get-user'] });
     },
   });
+
   return (
     <span className="flex gap-4 cursor-pointer">
       <Button isIconOnly color="primary" aria-label="Like" size="sm" variant="ghost">

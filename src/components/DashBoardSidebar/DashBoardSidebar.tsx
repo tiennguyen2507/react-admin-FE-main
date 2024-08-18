@@ -21,19 +21,14 @@ export default function SideBar(): JSX.Element {
 
   const renderHeader = (): JSX.Element => (
     <div className="dash-board-sidebar__header">
-      <img src={resources.LOGO} />
+      <img src={resources.LOGO} width={70} />
       <BaseText size="30" weight="700" color="kashmir-blue">
         sneat
       </BaseText>
     </div>
   );
 
-  const renderMenu = ({
-    id,
-    label,
-    children,
-    icon,
-  }: DashBoardMenu.MenusList): JSX.Element => {
+  const renderMenu = ({ id, label, children, icon }: DashBoardMenu.MenusList): JSX.Element => {
     if (children) {
       return (
         <DashBoardSubMenu
