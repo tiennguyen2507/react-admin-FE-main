@@ -7,6 +7,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserFormModal } from './_components/UserFormModal';
 import { EditIcon, DeleteIcon, CheckIcon } from '@nextui-org/shared-icons';
 import { Popover } from '@/components/ui/Popover';
+import { PageConfig } from '@/config/pageConfig';
 
 const Users: React.FC = () => {
   const { data: users, isLoading } = useQuery({
@@ -79,4 +80,13 @@ const ActionTable: React.FC<{ id: string }> = ({ id }) => {
   );
 };
 
-export default Users;
+const withLogin = async () => {
+  return true;
+};
+
+export default () =>
+  PageConfig({
+    Page: Users,
+    title: 'Dashboard user',
+    middleware: [withLogin, withLogin, withLogin],
+  });
