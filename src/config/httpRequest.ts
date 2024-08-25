@@ -18,8 +18,19 @@ httpRequestAuth.interceptors.request.use((request) => {
   return request;
 });
 
-httpRequestAuth.interceptors.response.use((response) => {
-  return response;
-});
+httpRequestAuth.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  (error) => {
+    console.log(error.response.data.statusCode);
+
+    if (error.response.data.statusCode === 401) {
+      localStorage.removeItem('access_token');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  },
+);
 
 export default httpRequestAuth;

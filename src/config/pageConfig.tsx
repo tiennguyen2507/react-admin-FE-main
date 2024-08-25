@@ -19,6 +19,8 @@ export const PageConfig = ({ Page, title, middleware = [] }: TypeParamsPageConfi
     const [firsMiddleware, ...rest] = middleware;
 
     const check = await firsMiddleware({ navigate });
+    console.log(check);
+
     if (!check) {
       return navigate('/404');
     }

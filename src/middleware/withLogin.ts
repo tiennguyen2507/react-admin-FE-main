@@ -5,7 +5,6 @@ export const withLogin = async () => {
     .get('/auth/info')
     .then(() => true)
     .catch(() => {
-      window.location.href = '/login';
       return false;
     });
 };
