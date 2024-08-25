@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <HelmetProvider>
         <NextUIProvider>
           <Helmet>
-            <title>app-user</title>
+            <title>Quản lý Admin</title>
             <meta name="description" content="App user" />
             <meta property="og:title" content="App user" />
             <meta property="og:type" content="website" />

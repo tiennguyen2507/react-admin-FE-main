@@ -12,7 +12,7 @@ type TypeParamsPageConfig = {
 export const PageConfig = ({ Page, title, middleware = [] }: TypeParamsPageConfig) => {
   const navigate = useNavigate();
   const [check, setCheck] = useState(false);
-  document.title = title;
+  document.title = title + '| Quản lý Admin';
 
   const handleMiddleware = async (middleware: ((ctx: ContextMiddleware) => Promise<boolean>)[]) => {
     if (middleware.length === 0) return true;
