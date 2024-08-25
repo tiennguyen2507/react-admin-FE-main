@@ -19,12 +19,8 @@ httpRequestAuth.interceptors.request.use((request) => {
 });
 
 httpRequestAuth.interceptors.response.use(
-  (res) => {
-    return res;
-  },
+  (res) => res,
   (error) => {
-    console.log(error.response.data.statusCode);
-
     if (error.response.data.statusCode === 401) {
       localStorage.removeItem('access_token');
       window.location.href = '/login';
