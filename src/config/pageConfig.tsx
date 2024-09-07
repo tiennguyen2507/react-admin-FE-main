@@ -1,7 +1,8 @@
 import { Loading } from '@/components/ui/loading';
+import { GlobalContextType, useGlobalContext } from '@/context/GlobalContext/useGlobalContext';
 import { NavigateFunction, useNavigate } from 'react-router';
 
-export type ContextMiddleware = { navigate: NavigateFunction };
+export type ContextMiddleware = { navigate: NavigateFunction; globalState: GlobalContextType };
 
 type TypeParamsPageConfig = {
   Page: any;
@@ -14,12 +15,13 @@ export const PageConfig = ({ Page, title, middleware = [] }: TypeParamsPageConfi
   const [check, setCheck] = useState(false);
   document.title = title + '| Quản lý Admin';
 
+  const globalState = useGlobalContext();
+
   const handleMiddleware = async (middleware: ((ctx: ContextMiddleware) => Promise<boolean>)[]) => {
     if (middleware.length === 0) return true;
     const [firsMiddleware, ...rest] = middleware;
 
-    const check = await firsMiddleware({ navigate });
-    console.log(check);
+    const check = await firsMiddleware({ navigate, globalState });
 
     if (!check) {
       return navigate('/404');

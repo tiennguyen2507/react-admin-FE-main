@@ -7,6 +7,7 @@ import { resources } from '@/constants/resources';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { NextUIProvider } from '@nextui-org/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GlobalContextProvider } from './context/GlobalContext/useGlobalContext';
 
 const queryClient = new QueryClient();
 
@@ -24,8 +25,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <meta property="og:description" content="Site description" />
             <meta name="theme-color" content="#FF0000" />
           </Helmet>
+          <GlobalContextProvider>
+            <RouterProvider router={router} />
+          </GlobalContextProvider>
         </NextUIProvider>
-        <RouterProvider router={router} />
       </HelmetProvider>
     </QueryClientProvider>
   </React.StrictMode>,
