@@ -5,7 +5,6 @@ import Page404 from '@/page/404';
 import Product from '@/page/product';
 import Portfolio from '@/page/Portfolio'; // Add this line
 
-const App = lazyLoad(() => import('@/page/App'));
 const SignIn = lazyLoad(() => import('@/page/Login'));
 
 const router = createBrowserRouter([
