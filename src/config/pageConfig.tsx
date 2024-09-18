@@ -5,7 +5,7 @@ import { NavigateFunction, useNavigate } from 'react-router';
 export type ContextMiddleware = { navigate: NavigateFunction; globalState: GlobalContextType };
 
 type TypeParamsPageConfig = {
-  Page: any;
+  Page: React.ComponentType<any>;
   title: string;
   middleware?: Array<(ctx: ContextMiddleware) => Promise<boolean>>;
 };
@@ -17,20 +17,21 @@ export const PageConfig = ({ Page, title, middleware = [] }: TypeParamsPageConfi
 
   const globalState = useGlobalContext();
 
-  const handleMiddleware = async (middleware: ((ctx: ContextMiddleware) => Promise<boolean>)[]) => {
-    if (middleware.length === 0) return true;
-    const [firsMiddleware, ...rest] = middleware;
-
-    const check = await firsMiddleware({ navigate, globalState });
-
-    if (!check) {
-      return navigate('/404');
+  const handleMiddleware = async (
+    middlewares: ((ctx: ContextMiddleware) => Promise<boolean>)[],
+  ) => {
+    for (const middleware of middlewares) {
+      if (!(await middleware({ navigate, globalState }))) {
+        navigate('/404');
+        return false;
+      }
     }
-    await handleMiddleware(middleware.length === 1 ? [] : rest);
+    return true;
   };
 
   const checkMiddleware = async () => {
-    await handleMiddleware(middleware).then(() => setCheck(true));
+    const result = await handleMiddleware(middleware);
+    setCheck(result);
   };
 
   useEffect(() => {

@@ -6,10 +6,7 @@ export const useUserFormModal = () => {
     isUserFormModal,
     setIsUserFormModal,
     UserFormModal: () => (
-      <UserFormModal
-        isOpen={isUserFormModal}
-        setIsUserFormModal={setIsUserFormModal}
-      />
+      <UserFormModal isOpen={isUserFormModal} setIsUserFormModal={setIsUserFormModal} />
     ),
   };
 };
