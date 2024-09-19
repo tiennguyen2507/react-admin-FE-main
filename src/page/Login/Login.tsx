@@ -14,8 +14,10 @@ const loginSchema = z.object({
 
 type FieldValue = z.infer<typeof loginSchema>;
 
-const Login: FunctionComponent = () => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const {
     register,
@@ -30,22 +32,34 @@ const Login: FunctionComponent = () => {
       localStorage.setItem('refresh_token', data.refresh_token);
       navigate('/user');
     },
+    onError: () => {
+      setErrorMessage('Đăng nhập không thành công');
+    },
   });
 
   const handleLogin = (data: FieldValue) => {
-    mutate(data);
+    setIsLoading(true);
+    setErrorMessage(''); // Clear previous error message
+    mutate(data, {
+      onSettled: () => setIsLoading(false),
+    });
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-cyan-700">
-      <form className="flex flex-col gap-3 w-96" onSubmit={handleSubmit(handleLogin)}>
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-cyan-500 to-blue-500">
+      <form
+        className="flex flex-col gap-3 w-96 p-6 bg-white rounded-lg shadow-lg"
+        onSubmit={handleSubmit(handleLogin)}
+      >
+        <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
         <Input
           {...register('email')}
           type="email"
           label="Email"
           size="sm"
           isInvalid={!!errors.email}
-          errorMessage="Please enter a valid email"
+          errorMessage={errors.email ? 'Please enter a valid email' : ''}
+          className="p-2"
         />
         <Input
           {...register('password')}
@@ -53,10 +67,17 @@ const Login: FunctionComponent = () => {
           label="Password"
           size="sm"
           isInvalid={!!errors.password}
-          errorMessage="Please enter a valid password"
+          errorMessage={errors.password ? 'Please enter a valid password' : ''}
+          className="p-2"
         />
-        <Button color="primary" type="submit">
-          Login
+        {errorMessage && <div className="text-red-500 text-center mb-2">{errorMessage}</div>}
+        <Button
+          color="primary"
+          type="submit"
+          className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          isLoading={isLoading}
+        >
+          Đăng Nhập
         </Button>
       </form>
     </div>
