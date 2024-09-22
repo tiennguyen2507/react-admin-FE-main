@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 import { z } from 'zod';
 
 const loginSchema = z.object({
-  email: z.string().email().min(1),
+  email: z.string().email().min(1).email(),
   password: z.string().min(1),
 });
 

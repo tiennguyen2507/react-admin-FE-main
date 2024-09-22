@@ -1,4 +1,5 @@
 import { PageConfig } from '@/config/pageConfig';
+import { Helmet } from 'react-helmet';
 
 const Portfolio: React.FC = () => {
   const profileImageUrl =
@@ -6,6 +7,26 @@ const Portfolio: React.FC = () => {
 
   return (
     <div className="bg-blue-900 to-white min-h-screen text-white relative overflow-hidden">
+      <Helmet>
+        <title>My Portfolio</title>
+        <meta
+          name="description"
+          content="This is my portfolio page showcasing my work and skills."
+        />
+        <meta
+          name="keywords"
+          content="portfolio, web developer, Nguyễn Lê Đình Tiên, NIIT CODERS"
+        />
+        <meta name="author" content="Nguyễn Lê Đình Tiên" />
+        <meta property="og:title" content="My Portfolio" />
+        <meta
+          property="og:description"
+          content="This is my portfolio page showcasing my work and skills."
+        />
+        <meta property="og:image" content={profileImageUrl} />
+        <meta property="og:url" content="https://nguyenledinhtien.io.vn/portfolio" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       {/* Decorative elements */}
       <div className="absolute top-10 left-10 w-20 h-20 border-4 border-cyan-400 rounded-full opacity-30"></div>
       <div className="absolute bottom-20 right-20 w-32 h-32 border-4 border-cyan-400 rounded-full opacity-30"></div>
