@@ -10,17 +10,11 @@ import { PageConfig } from '@/config/pageConfig';
 import httpRequestAuth from '@/config/httpRequest';
 import { withLogin } from '@/middleware/withLogin';
 import { useSearchParams } from 'react-router-dom';
-
-const columns = [
-  { key: 'fullName', label: 'name' },
-  { key: 'avatar', label: 'avatar' },
-  { key: 'email', label: 'email' },
-  { key: 'address', label: 'address' },
-  { key: 'action', label: '' },
-];
+import { columnsTable } from './constant';
 
 const Users: React.FC = () => {
   const [param, setURLSearchParams] = useSearchParams();
+  const { UserFormModal, setIsUserFormModal } = useUserFormModal();
 
   const { data: users, isLoading } = useQuery({
     queryKey: ['get-user', param.get('page')],
@@ -30,8 +24,6 @@ const Users: React.FC = () => {
         .then(({ data }) => data);
     },
   });
-
-  const { UserFormModal, setIsUserFormModal } = useUserFormModal();
 
   return (
     <DashBoardLayout>
@@ -44,11 +36,16 @@ const Users: React.FC = () => {
       <LoadingWrapper isLoading={isLoading}>
         <div className="w-full">
           <Table
-            columns={columns}
+            columns={columnsTable}
             rows={users?.data}
             renderRow={{
               address: ({ address }: any) => address || 'Chưa được cập nhật',
-              action: ({ _id }: { _id: string }) => <ActionTable id={_id} />,
+              action: ({ _id }: { _id: string }) => (
+                <ActionTable
+                  id={_id}
+                  onEdit={() => setURLSearchParams({ page: param.get('page') || '1', edit: _id })}
+                />
+              ),
               avatar: ({ avatar }: { avatar: string }) => (
                 <Avatar src={avatar} radius="full" size="sm" />
               ),
@@ -67,13 +64,13 @@ const Users: React.FC = () => {
             />
           </div>
         </div>
+        <UserFormModal />
       </LoadingWrapper>
-      <UserFormModal />
     </DashBoardLayout>
   );
 };
 
-const ActionTable: React.FC<{ id: string }> = ({ id }) => {
+const ActionTable: React.FC<{ id: string; onEdit: () => void }> = ({ id, onEdit }) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: (id: string) => httpRequestAuth.delete(`/users/${id}`),
@@ -84,7 +81,14 @@ const ActionTable: React.FC<{ id: string }> = ({ id }) => {
 
   return (
     <span className="flex gap-4 cursor-pointer">
-      <Button isIconOnly color="primary" aria-label="Like" size="sm" variant="ghost">
+      <Button
+        isIconOnly
+        color="primary"
+        aria-label="Like"
+        size="sm"
+        variant="ghost"
+        onClick={onEdit}
+      >
         <EditIcon />
       </Button>
       <Popover

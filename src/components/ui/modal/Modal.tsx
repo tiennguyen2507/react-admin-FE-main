@@ -14,7 +14,7 @@ type Props = Omit<ModalProps, 'children'> &
   PropsWithChildren<{
     title: string;
     action?: {
-      submit?: ButtonProps;
+      submit?: ButtonProps & { label: string };
     };
   }>;
 
@@ -33,7 +33,7 @@ export const Modal: React.FC<Props> = (props) => {
                 Đóng
               </Button>
               <Button color="primary" {...action?.submit}>
-                Thêm
+                {action?.submit?.label}
               </Button>
             </ModalFooter>
           </>

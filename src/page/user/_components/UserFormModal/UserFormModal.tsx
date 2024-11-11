@@ -5,33 +5,28 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input, Textarea } from '@nextui-org/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-const userSchema = z.object({
-  email: z.string().email().min(1),
-  password: z.string().min(1),
-  firstName: z.string().min(1),
-  lastName: z.string().min(1),
-  avatar: z.string().optional(),
-  address: z.string().optional(),
-});
-
-type FieldValue = z.infer<typeof userSchema>;
+import { userSchema, FieldValue } from '../../constant';
+import { useSearchParams } from 'react-router-dom';
 
 export const UserFormModal: React.FC<{
   isOpen: boolean;
   setIsUserFormModal: (value: boolean) => void;
-}> = ({ isOpen, setIsUserFormModal }) => {
+  value: any;
+}> = ({ isOpen, setIsUserFormModal, value }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setValue,
-  } = useForm<FieldValue>({ resolver: zodResolver(userSchema) });
+  } = useForm<FieldValue>({ defaultValues: value, resolver: zodResolver(userSchema) });
+  const [param, setURLSearchParams] = useSearchParams();
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const idEdit = param.get('edit');
+  const page = param.get('page') || '1';
+
+  const { mutate: addUserMutate } = useMutation({
     mutationFn: (data: FieldValue) => httpRequestAuth.post('/users', data),
     onSuccess: () => {
       setIsUserFormModal(false);
@@ -39,12 +34,36 @@ export const UserFormModal: React.FC<{
     },
   });
 
+  const { mutate: editUserMutate } = useMutation({
+    mutationFn: (data: FieldValue) => httpRequestAuth.patch(`/users/${idEdit}`, data),
+    onSuccess: () => {
+      setIsUserFormModal(false);
+      queryClient.invalidateQueries({ queryKey: ['get-user'] });
+      setURLSearchParams({ page });
+    },
+  });
+
+  const onClose = () => {
+    if (idEdit) {
+      setURLSearchParams({ page });
+    }
+    setIsUserFormModal(false);
+  };
+
+  const onSubmit = handleSubmit((data) => {
+    if (idEdit) {
+      editUserMutate(data);
+    } else {
+      addUserMutate(data);
+    }
+  });
+
   return (
     <Modal
       isOpen={isOpen}
-      title="User"
-      onClose={() => setIsUserFormModal(false)}
-      action={{ submit: { onClick: handleSubmit((data) => mutate(data)) } }}
+      title={idEdit ? 'Chỉnh sửa người dùng' : 'Thêm người dùng'}
+      onClose={onClose}
+      action={{ submit: { label: 'Xác nhận', isDisabled: !isValid, onClick: onSubmit } }}
     >
       <form className="flex flex-col gap-3">
         <Input
