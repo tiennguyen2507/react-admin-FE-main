@@ -1,7 +1,8 @@
 import { Modal } from '@/components/ui/modal';
 import httpRequestAuth from '@/config/httpRequest';
+import { inputImgToBase64 } from '@/lib';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '@nextui-org/react';
+import { Input, Textarea } from '@nextui-org/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -11,6 +12,8 @@ const userSchema = z.object({
   password: z.string().min(1),
   firstName: z.string().min(1),
   lastName: z.string().min(1),
+  avatar: z.string().optional(),
+  address: z.string().optional(),
 });
 
 type FieldValue = z.infer<typeof userSchema>;
@@ -23,6 +26,7 @@ export const UserFormModal: React.FC<{
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FieldValue>({ resolver: zodResolver(userSchema) });
 
   const queryClient = useQueryClient();
@@ -72,6 +76,20 @@ export const UserFormModal: React.FC<{
           size="sm"
           isInvalid={!!errors.password}
           errorMessage="Please enter a valid password"
+        />
+        <Textarea label="Địa chỉ" {...register('address')} />
+        <Input
+          type="file"
+          label="Avatar"
+          size="sm"
+          onChange={async (event) => {
+            const avatarString = await inputImgToBase64(
+              event?.target?.files !== null ? event?.target?.files[0] : null,
+            );
+            if (!!avatarString) {
+              setValue('avatar', avatarString);
+            }
+          }}
         />
       </form>
     </Modal>

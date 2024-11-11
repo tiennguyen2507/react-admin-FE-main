@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosConfig = {
-  baseURL: 'https://nest-study.adaptable.app/',
+  baseURL: 'http://localhost:3000/',
   timeout: 60000,
 };
 

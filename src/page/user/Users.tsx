@@ -1,7 +1,7 @@
 import { LoadingWrapper } from '@/components/ui/loading';
 import { Table } from '@/components/ui/Table';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
-import { Button } from '@nextui-org/react';
+import { Button, Avatar, Pagination } from '@nextui-org/react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserFormModal } from './_components/UserFormModal';
 import { EditIcon, DeleteIcon, CheckIcon } from '@nextui-org/shared-icons';
@@ -9,40 +9,64 @@ import { Popover } from '@/components/ui/Popover';
 import { PageConfig } from '@/config/pageConfig';
 import httpRequestAuth from '@/config/httpRequest';
 import { withLogin } from '@/middleware/withLogin';
+import { useSearchParams } from 'react-router-dom';
+
+const columns = [
+  { key: 'fullName', label: 'name' },
+  { key: 'avatar', label: 'avatar' },
+  { key: 'email', label: 'email' },
+  { key: 'address', label: 'address' },
+  { key: 'action', label: '' },
+];
 
 const Users: React.FC = () => {
+  const [param, setURLSearchParams] = useSearchParams();
+
   const { data: users, isLoading } = useQuery({
-    queryKey: ['get-user'],
-    queryFn: () => httpRequestAuth.get('/users').then(({ data }) => data),
+    queryKey: ['get-user', param.get('page')],
+    queryFn: () => {
+      return httpRequestAuth
+        .get('/users', { params: { page: param.get('page') || 1, limit: 10 } })
+        .then(({ data }) => data);
+    },
   });
 
   const { UserFormModal, setIsUserFormModal } = useUserFormModal();
 
-  const columns = [
-    { key: 'name', label: 'name' },
-    { key: 'email', label: 'email' },
-    { key: 'address', label: 'address' },
-    { key: 'action', label: '' },
-  ];
-
   return (
     <DashBoardLayout>
       <div className="py-2 mb-2 flex justify-between">
-        <h2 className="text-2xl">User</h2>
+        <h2 className="text-2xl">Người dùng</h2>
         <Button size="sm" color="primary" onClick={() => setIsUserFormModal(true)}>
-          add
+          Thêm người dùng
         </Button>
       </div>
       <LoadingWrapper isLoading={isLoading}>
-        <Table
-          columns={columns}
-          rows={users}
-          renderRow={{
-            name: ({ lastName, firstName }: any) => lastName + ' ' + firstName,
-            address: ({ address }: any) => address || 'Chưa được cập nhật',
-            action: ({ _id }: { _id: string }) => <ActionTable id={_id} />,
-          }}
-        />
+        <div className="w-full">
+          <Table
+            columns={columns}
+            rows={users?.data}
+            renderRow={{
+              address: ({ address }: any) => address || 'Chưa được cập nhật',
+              action: ({ _id }: { _id: string }) => <ActionTable id={_id} />,
+              avatar: ({ avatar }: { avatar: string }) => (
+                <Avatar src={avatar} radius="full" size="sm" />
+              ),
+            }}
+          />
+          <div className="flex items-center justify-between mt-3">
+            <p>
+              Tổng số người dùng:
+              <span className="text-lg ml-2 px-2 rounded-lg border-1">{users?.total}</span>
+            </p>
+            <Pagination
+              showControls
+              total={users?.totalPages}
+              initialPage={Number(param.get('page') || '1')}
+              onChange={(page) => setURLSearchParams({ page: page.toString() })}
+            />
+          </div>
+        </div>
       </LoadingWrapper>
       <UserFormModal />
     </DashBoardLayout>

@@ -30,10 +30,10 @@ export const Modal: React.FC<Props> = (props) => {
             <ModalBody>{children}</ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onClick={onClose}>
-                Close
+                Đóng
               </Button>
               <Button color="primary" {...action?.submit}>
-                Action
+                Thêm
               </Button>
             </ModalFooter>
           </>
