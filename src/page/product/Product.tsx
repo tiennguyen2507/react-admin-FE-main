@@ -8,6 +8,7 @@ import { Popover } from '@/components/ui/Popover';
 import { PageConfig } from '@/config/pageConfig';
 import httpRequestAuth from '@/config/httpRequest';
 import { withLogin } from '@/middleware/withLogin';
+import { useProductFormModal } from './_components/ProductFormModal';
 
 const formatPrice = (price: number) => {
   if (price === 0) return '-';
@@ -15,24 +16,31 @@ const formatPrice = (price: number) => {
 };
 
 const Product: React.FC = () => {
+  const { setIsUserFormModal, ProductFormModal } = useProductFormModal();
   const { data: products, isLoading } = useQuery({
     queryKey: ['get-product'],
     queryFn: () => httpRequestAuth.get('/products').then(({ data }) => data),
   });
 
   const columns = [
-    { key: 'name', label: 'Name' },
-    { key: 'price', label: 'Price', className: 'text-center' },
+    { key: 'title', label: 'Title' },
     { key: 'description', label: 'Description' },
+    { key: 'sizes', label: 'Size' },
     { key: 'action', label: '' },
   ];
 
   return (
     <DashBoardLayout>
       <div className="py-2 mb-2 flex justify-between">
-        <h2 className="text-2xl">Product</h2>
-        <Button size="sm" color="primary" onClick={() => {}}>
-          Add
+        <h2 className="text-2xl">Sản phẩm</h2>
+        <Button
+          size="sm"
+          color="primary"
+          onClick={() => {
+            setIsUserFormModal(true);
+          }}
+        >
+          Thêm sản phẩm
         </Button>
       </div>
       <LoadingWrapper isLoading={isLoading}>
@@ -40,11 +48,24 @@ const Product: React.FC = () => {
           columns={columns}
           rows={products}
           renderRow={{
-            price: ({ price }: any) => <div className="text-center">{formatPrice(price)}</div>,
+            sizes: ({ sizes }: any) => {
+              return (
+                <div>
+                  {sizes?.map(({ size, price, sales }: any) => (
+                    <p key={size} className="flex gap-3 rounded-xl border-2 w-fit px-3 py-1">
+                      <span>{size}</span>
+                      <span>{formatPrice(price)}</span>
+                      <span className="text-red-700">{formatPrice(sales)}</span>
+                    </p>
+                  ))}
+                </div>
+              );
+            },
             description: ({ description }: any) => description || 'No description',
             action: ({ _id }: { _id: string }) => <ActionTable id={_id} />,
           }}
         />
+        <ProductFormModal />
       </LoadingWrapper>
     </DashBoardLayout>
   );
@@ -67,7 +88,7 @@ const ActionTable: React.FC<{ id: string }> = ({ id }) => {
       <Popover
         content={
           <span className="flex gap-1 items-center">
-            Are you sure you want to delete?
+            Bạn có chắc là xoá chứ!
             <Button size="sm" isIconOnly variant="light" onClick={() => mutate(id)}>
               <CheckIcon />
             </Button>
