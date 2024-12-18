@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosConfig = {
-  baseURL: 'https://nest-js-study.onrender.com',
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 60000,
 };
 
