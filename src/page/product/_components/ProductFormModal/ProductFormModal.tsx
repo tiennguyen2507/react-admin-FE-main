@@ -1,9 +1,7 @@
 import { Modal } from '@/components/ui/modal';
-import httpRequestAuth from '@/config/httpRequest';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
 import { PlusFilledIcon } from '@nextui-org/shared-icons';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import { categoryOptions, FieldValue, productSchema, sizeOptions } from '../../constant';
@@ -13,7 +11,6 @@ export const ProductFormModal: React.FC<{
   value: any;
 }> = ({ isOpen, setIsUserFormModal, value }) => {
   const [param, setURLSearchParams] = useSearchParams();
-  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -22,23 +19,6 @@ export const ProductFormModal: React.FC<{
 
   const idEdit = param.get('edit');
   const page = param.get('page') || '1';
-
-  const { mutate: addUserMutate } = useMutation({
-    mutationFn: (data: FieldValue) => httpRequestAuth.post('/users', data),
-    onSuccess: () => {
-      setIsUserFormModal(false);
-      queryClient.invalidateQueries({ queryKey: ['get-user'] });
-    },
-  });
-
-  const { mutate: editUserMutate } = useMutation({
-    mutationFn: (data: FieldValue) => httpRequestAuth.patch(`/users/${idEdit}`, data),
-    onSuccess: () => {
-      setIsUserFormModal(false);
-      queryClient.invalidateQueries({ queryKey: ['get-user'] });
-      setURLSearchParams({ page });
-    },
-  });
 
   const onClose = () => {
     if (idEdit) {
@@ -88,11 +68,7 @@ export const ProductFormModal: React.FC<{
 };
 
 const Sizes: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValue>({ resolver: zodResolver(productSchema) });
+  const { register } = useForm<FieldValue>({ resolver: zodResolver(productSchema) });
   return (
     <div>
       <p>Thêm kích thước</p>

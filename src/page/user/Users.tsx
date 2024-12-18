@@ -1,7 +1,7 @@
 import { LoadingWrapper } from '@/components/ui/loading';
 import { Table } from '@/components/ui/Table';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
-import { Button, Avatar, Pagination } from '@nextui-org/react';
+import { Button, Avatar } from '@nextui-org/react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserFormModal } from './_components/UserFormModal';
 import { EditIcon, DeleteIcon, CheckIcon } from '@nextui-org/shared-icons';
