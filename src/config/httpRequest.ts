@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosConfig = {
-  baseURL: 'http://localhost:3000/',
+  baseURL: 'https://nest-js-study.onrender.com',
   timeout: 60000,
 };
 

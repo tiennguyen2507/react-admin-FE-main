@@ -8,7 +8,7 @@ import Portfolio from '@/page/Portfolio'; // Add this line
 const SignIn = lazyLoad(() => import('@/page/Login'));
 
 const router = createBrowserRouter([
-  { path: '/', element: <Navigate to="/portfolio" replace /> },
+  { path: '/', element: <Navigate to="/User" replace /> },
   { path: '/user', element: <User /> },
   { path: '/product', element: <Product /> },
   { path: '/portfolio', element: <Portfolio /> },

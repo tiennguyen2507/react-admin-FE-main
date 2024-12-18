@@ -37,7 +37,7 @@ const Users: React.FC = () => {
         <div className="w-full">
           <Table
             columns={columnsTable}
-            rows={users?.data}
+            rows={users}
             renderRow={{
               address: ({ address }: any) => address || 'Chưa được cập nhật',
               action: ({ _id }: { _id: string }) => (
@@ -51,7 +51,7 @@ const Users: React.FC = () => {
               ),
             }}
           />
-          <div className="flex items-center justify-between mt-3">
+          {/* <div className="flex items-center justify-between mt-3">
             <p>
               Tổng số người dùng:
               <span className="text-lg ml-2 px-2 rounded-lg border-1">{users?.total}</span>
@@ -62,7 +62,7 @@ const Users: React.FC = () => {
               initialPage={Number(param.get('page') || '1')}
               onChange={(page) => setURLSearchParams({ page: page.toString() })}
             />
-          </div>
+          </div> */}
         </div>
         <UserFormModal />
       </LoadingWrapper>
